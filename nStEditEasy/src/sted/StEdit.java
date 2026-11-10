@@ -63,7 +63,36 @@ public class StEdit {
      * @return Zeichenkette in der su durch se ersetzt ist
      */
     public static String ersetzen(String s, int start, String su, String se) {
-        return "123";
+        if (s == null) {
+            return s;
+        }
+        
+        if (su == null) {
+            return s;
+        }        
+        
+        if (se == null) {
+            return s;
+        }
+        
+        if (start < 0 || start >= s.length()) {
+            return s;
+        }
+        
+        if (!s.contains(su)) {
+            return s;
+        }
+        
+        int searchIndex = s.indexOf(su, start);
+        if (searchIndex == -1) {
+            return s;
+        }
+        
+        String secondHalf = s.substring(searchIndex + su.length());        
+        String firstHalf = s.substring(0, searchIndex);
+        
+        
+        return firstHalf + se + secondHalf;
     }
 
     /**
@@ -86,7 +115,26 @@ public class StEdit {
      * @return Zeilennummer des Zeichens auf Position p
      */
     public static int zeilenNummer(String s, int p) {
-        return 123;
+        if (s == null || p < 0) {
+            return 0;
+        }
+        
+        if (p > s.length()) {
+            p = s.length();
+        }
+        
+        String[] zeilen = s.substring(0, Math.min(p, s.length())).split(String.valueOf(rowSeparator), -1);
+        return zeilen.length;
+        
+        /*int zeile = 1;
+        
+        for (int i = 0; i < p; i++) {
+            if (s.charAt(i) == rowSeparator) {
+                zeile ++;
+            }
+        }
+        
+        return zeile;*/
     }
 
     /**
