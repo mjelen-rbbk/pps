@@ -156,7 +156,44 @@ public class StEdit {
      * @return Spaltennummer des Zeichens auf Position p
      */
     public static int spaltenNummer(String s, int p) {
-        return 123;
+        if (s == null || p < 0) {
+            return 0;
+        }
+        
+        if (s.isEmpty()) {
+            return 1;
+        }
+        
+        if (p > s.length()) {
+            p = s.length() - 1;
+        }
+        
+        int pos = s.lastIndexOf(rowSeparator, p - 1);
+        return p - pos;
+        
+        /*
+        int row = 1;
+        for (int i = 0; i < p; i++) {
+            if (s.charAt(i) == rowSeparator) {
+                row = 1;
+            } else {
+                row++;
+            }
+        }
+        
+        return row;*/
+        
+        /* Broken
+        String subString = s.substring(p);
+        String[] splitStrings = subString.split("\n");
+        
+        for (int i = 0; i < splitStrings.length; i++) {
+            if (splitStrings[i].contains(s)) {
+                return i + 1;
+            }
+        }
+        
+        return 0;*/
     }
 
     /**
@@ -176,7 +213,22 @@ public class StEdit {
      * @param s Zeichenkette in der Sonderzeichen ersetzt werden sollen
      */
     public static String ersetzeSonderzeichen(String s) {
-        return "123";
+        if (s == null) {
+            return null;
+        }
+        
+        if (s.isBlank()) {
+            return s;
+        }
+        
+        return s.replaceAll(String.valueOf(_ae_), "ae")
+                .replaceAll(String.valueOf(_oe_), "oe")
+                .replaceAll(String.valueOf(_ue_), "ue")
+                .replaceAll(String.valueOf(_AE_), "Ae")
+                .replaceAll(String.valueOf(_OE_), "Oe")
+                .replaceAll(String.valueOf(_UE_), "Ue")
+                .replaceAll(String.valueOf(_sz_), "ss")
+                .replaceAll(String.valueOf(_SZ_), "SZ");
     }
 
     /**
