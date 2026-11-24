@@ -221,6 +221,22 @@ public class StEdit {
             return s;
         }
         
+        /*StringBuilder sb = new StringBuilder(2 * s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case _ae_ -> sb.append("ae");
+                case _oe_ -> sb.append("oe");
+                case _ue_ -> sb.append("ue");
+                case _AE_ -> sb.append("AE");
+                case _OE_ -> sb.append("OE");
+                case _UE_ -> sb.append("UE");
+                case _sz_ -> sb.append("ss");
+                case _SZ_ -> sb.append("SZ");
+                default -> sb.append(c);
+            }
+        }*/
+        
         return s.replaceAll(String.valueOf(_ae_), "ae")
                 .replaceAll(String.valueOf(_oe_), "oe")
                 .replaceAll(String.valueOf(_ue_), "ue")
@@ -249,11 +265,31 @@ public class StEdit {
      * @return Text mit Zeilennummern
      */
     public static String nummeriereZeilen(String s) {
-        return "123";
+        if (s == null) {
+            return null;
+        }
+
+        String[] lines = s.split("\n", -1);
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < lines.length; i++) {
+            /*if (i != 0) {
+                builder.append("\n");
+            }*/
+
+            builder.append(nummer(i + 1))
+                   .append(lines[i]);
+            
+            builder.append("\n");
+        }
+
+        builder.deleteCharAt(builder.length() - 1);
+        
+        return builder.toString();
     }
     
     private static String nummer(int i){
-        return "0001: ";
+        return String.format("%04d: ", i);
     }
 
     /**
